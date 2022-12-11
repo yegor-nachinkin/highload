@@ -20,7 +20,7 @@ object Bomber {
       if(args.length > 1) params(1) = args(1)
       params(2) = "5" // number of milliseconds to wait between requests
       if(args.length > 2) params(2) = args(2)
-      params(3) = "http://localhost:16000/abcd" // address to bomb
+      params(3) = "http://localhost:9000/reverse/abcd" // address to bomb
       if(args.length > 3) params(3) = args(3)
       
       val ai = new AtomicInteger(0)
