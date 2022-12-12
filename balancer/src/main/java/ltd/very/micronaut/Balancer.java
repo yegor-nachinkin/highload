@@ -112,10 +112,17 @@ public class Balancer {
         new Thread(new Runnable(){
 			   @Override
 			   public void run(){
-                   System.out.println("running in: " + System.getProperty("user.dir"));
+                   
+                   //System.out.println("running in: " + System.getProperty("user.dir"));
 				   try{
-                   String killerCommand = System.getProperty("user.dir") + System.getProperty("file.separator") + "killall.pl"; // String.join(System.getProperty("file.separator"), splt);
-                   // System.out.println("Killer command: " + killerCommand);
+                   //String s = (new File(Balancer.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath()).toString().split(System.getProperty("file.separator"));
+                   //System.out.println("Jar location: " + (new File(Balancer.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath()).toString()); 
+                   String[] splt = (new File(Balancer.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath()).toString().split(System.getProperty("file.separator")); //s.split(System.getProperty("file.separator"));
+                   String[] b = Arrays.copyOf(splt, splt.length - 2);
+                   //System.out.println("XXX: " + String.join(System.getProperty("file.separator"), b));
+                   String killerCommand = String.join(System.getProperty("file.separator"), b) + System.getProperty("file.separator") + "killall.pl";
+                   // String.join(System.getProperty("file.separator"), splt);
+                   System.out.println("Killer command: " + killerCommand);
 		              for(int x = 0; x < 20; x++){
 		              taskChannel.basicPublish("", taskQueueName, null, "stop".getBytes(StandardCharsets.UTF_8));
 	                  System.out.println("Sent stop signal " + String.valueOf(x));

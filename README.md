@@ -7,3 +7,9 @@ and passes them on to clients),
 The load balancer and the worker have been coded in Java 11, the bomber in Scala 2.13
 
 For details see respective README.md's in subdirectories.
+
+If yoy are happy enough to use a Linux machine and to have gnome-terminal installed and
+RabbitMQ server installed and running, you can compile and run the whole zoo just by
+typing
+
+$ ./startall.sh
