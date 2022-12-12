@@ -1,4 +1,4 @@
-This small projects includes
+This small project includes
 1. a load balancer (passes requests to workers via RabbitMQ, gets back responses via RabbitMQ
 and passes them on to clients),
 2. (a) (more or less slow) worker(s) doing the actual work of processing requests,
