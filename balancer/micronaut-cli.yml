@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: ltd.very.micronaut
+testFramework: junit
+sourceLanguage: java
+buildTool: maven
+features: [annotation-api, app-name, http-client, jackson-databind, java, java-application, junit, logback, maven, netty-server, rabbitmq, readme, shade, spring, spring-web, test-resources, yaml]

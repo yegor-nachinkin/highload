@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+gnome-terminal -- sh -c "bash -c \"cd ~/java_projects/highload/system1/slowworker; ./run tasks; exec bash\"" &
+gnome-terminal -- sh -c "bash -c \"cd ~/java_projects/highload/system1/slowworker; ./run tasks; exec bash\"" &
+gnome-terminal -- sh -c "bash -c \"cd ~/java_projects/highload/system1/slowworker; ./run tasks; exec bash\"" &
+gnome-terminal -- sh -c "bash -c \"cd ~/java_projects/highload/system1/slowworker; ./run tasks; exec bash\"" &
+gnome-terminal -- sh -c "bash -c \"cd ~/java_projects/highload/system1/slowworker; ./run tasks; exec bash\"" &
+gnome-terminal -- sh -c "bash -c \"cd ~/java_projects/highload/system1/slowworker; ./run tasks; exec bash\"" &
+gnome-terminal -- sh -c "bash -c \"cd ~/java_projects/highload/system1/slowworker; ./run tasks; exec bash\"" &
+gnome-terminal -- sh -c "bash -c \"cd ~/java_projects/highload/system1/slowworker; ./run tasks; exec bash\"" &
+gnome-terminal -- sh -c "bash -c \"cd ~/java_projects/highload/system1/slowworker; ./run tasks; exec bash\"" &
+gnome-terminal -- sh -c "bash -c \"cd ~/java_projects/highload/system1/slowworker; ./run tasks; exec bash\"" &
+

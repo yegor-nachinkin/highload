@@ -1,0 +1,13 @@
+micronaut:
+  application:
+    name: balancer
+  server:
+    port: 9000
+    host: localhost
+netty:
+  default:
+    allocator:
+      max-order: 3
+  event-loops:
+      other:
+        num-threads: 25
