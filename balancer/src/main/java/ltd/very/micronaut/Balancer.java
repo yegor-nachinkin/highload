@@ -9,7 +9,6 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Produces;
 
 import java.util.*;
-
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -39,6 +38,7 @@ public class Balancer {
 		String msg = id + ":" + word;
 		final byte[] mybytes = new byte[512];
 		final boolean[] success = new boolean[1]; success[0] = false;
+        final Object locker = new Object();
 		try{
 			 responseChannel.queueDeclare(id, false, false, false, null);
 			 // it is vital for response channel to start listening on response queue
@@ -46,22 +46,25 @@ public class Balancer {
 		     responseChannel.basicConsume(id, true, (consumerTag, delivery) -> {
                      byte[] in = delivery.getBody();
                      for(int x = 0; x < in.length; x++){mybytes[x] = in[x];}
-                     success[0] = true;
+                     synchronized(locker){
+                       success[0] = true;
+                       locker.notify();
+                     }
                      responseChannel.queueDelete(id);
                   }, consumerTag -> { });
              taskChannel.basicPublish("", taskQueueName, null, msg.getBytes(StandardCharsets.UTF_8));
 	         System.out.println("Sent: " + msg);                  
-        }catch(Exception eee){eee.printStackTrace();}
+        }catch(Exception eee){eee.printStackTrace(); System.exit(1);}
         String res = "";
-        int p = 0;
-        while(!success[0]){
-			// System.out.println("Waiting for " + id);
-			try{Thread.sleep(1L);}catch(Exception ee){res = "response: none"; ee.printStackTrace();}
-			p++;
-			if(p > maxWaitMillis){break;}
-		}
+        long p = System.currentTimeMillis();
+        synchronized(locker){
+           while(!success[0]){
+            try{locker.wait(maxWaitMillis);}catch(Exception ee){res = "response: none"; ee.printStackTrace();}
+		   }
+        }
         // remove trailing zero bytes !
         try{res = (new String(mybytes, "UTF-8").replaceAll("\0", ""));}catch(Exception ex){res = "response: bad"; ex.printStackTrace();} 
+        p = System.currentTimeMillis() - p;
         System.out.println("Received: " + res + " <-- " + word + " (" + String.valueOf(p) + ")");
         return res + "\n";   
     }	
